@@ -98,9 +98,10 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
             });
     };
     fetDbmlFile();
-    // useEffect(() => {
-    //     fetDbmlFile();
-    // }, []);
+    useEffect(() => {
+        fetDbmlFile();
+    }, [projectId, envId]);
+
     const initialDBML = content ?? '';
 
     const [dbmlContent, setDBMLContent] = useState<string>(initialDBML);
