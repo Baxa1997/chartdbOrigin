@@ -81,8 +81,8 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
     withCreateEmptyDiagram,
 }) => {
     const { t } = useTranslation();
-    const [searchParams] = useSearchParams();
-    const [content, setContent] = useState('');
+    // const [searchParams] = useSearchParams();
+    // const [content, setContent] = useState('');
     // const projectId = searchParams.get('project_id');
     // const envId = searchParams.get('environment_id');
     // const projectId = '27ab570d-1087-4ad8-b1a4-4a0425092a0f';
@@ -102,7 +102,7 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
     // useEffect(() => {
     //     fetDbmlFile();
     // }, []);
-    const initialDBML = content ?? '';
+    const initialDBML = '';
 
     const [dbmlContent, setDBMLContent] = useState<string>(initialDBML);
     const { closeImportDBMLDialog } = useDialog();
