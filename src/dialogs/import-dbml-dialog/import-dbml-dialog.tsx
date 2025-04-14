@@ -92,7 +92,7 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
             .get(
                 `https://admin-api.ucode.run/v1/chart?project-id=${projectId}&environment-id=${envId}`
             )
-            .then((res: any) => {
+            .then((res) => {
                 setContent(res?.data?.data?.dbml);
                 setDBMLContent(res?.data?.data?.dbml);
             });
