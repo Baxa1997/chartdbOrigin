@@ -32,6 +32,7 @@ import { useToast } from '@/components/toast/use-toast';
 import { Spinner } from '@/components/spinner/spinner';
 import { debounce } from '@/lib/utils';
 import { useSearchParams } from 'react-router-dom';
+import axios from 'axios';
 
 interface DBMLError {
     message: string;
@@ -86,33 +87,20 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
     const projectId = searchParams.get('project_id');
     const envId = searchParams.get('environment_id');
 
-    const fetDbmlFile = async (): Promise<void> => {
-        try {
-            const response = await fetch(
+    const fetDbmlFile = async () => {
+        await axios
+            .get(
                 `https://admin-api.ucode.run/v1/chart?project-id=${projectId}&environment-id=${envId}`
-            );
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const resData: {
-                data?: {
-                    dbml?: string;
-                };
-            } = await response.json();
-            const dbml = resData?.data?.dbml;
-            if (dbml) {
-                setContent(dbml);
-                setDBMLContent(dbml);
-            }
-        } catch (error) {
-            console.error('Failed to fetch DBML file:', error);
-        }
+            )
+            .then((res) => {
+                setContent(res?.data?.data?.dbml);
+                setDBMLContent(res?.data?.data?.dbml);
+            });
     };
     fetDbmlFile();
     // useEffect(() => {
     //     fetDbmlFile();
     // }, []);
-
     const initialDBML = content ?? '';
 
     const [dbmlContent, setDBMLContent] = useState<string>(initialDBML);
