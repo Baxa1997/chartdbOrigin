@@ -87,35 +87,34 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
     const envId = searchParams.get('environment_id');
 
     const fetDbmlFile = async (): Promise<void> => {
-        try {
-            const response = await fetch(
-                `https://admin-api.ucode.run/v1/chart?project-id=${projectId}&environment-id=${envId}`
-            );
+        console.log('projectId', projectId, envId, setContent);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const resData: {
-                data?: {
-                    dbml?: string;
-                };
-            } = await response.json();
-
-            const dbml = resData?.data?.dbml;
-
-            if (dbml) {
-                setContent(dbml);
-                setDBMLContent(dbml);
-            }
-        } catch (error) {
-            console.error('Failed to fetch DBML file:', error);
-        }
+        // try {
+        //     const response = await fetch(
+        //         `https://admin-api.ucode.run/v1/chart?project-id=${projectId}&environment-id=${envId}`
+        //     );
+        //     if (!response.ok) {
+        //         throw new Error(`HTTP error! Status: ${response.status}`);
+        //     }
+        //     const resData: {
+        //         data?: {
+        //             dbml?: string;
+        //         };
+        //     } = await response.json();
+        //     const dbml = resData?.data?.dbml;
+        //     if (dbml) {
+        //         setContent(dbml);
+        //         setDBMLContent(dbml);
+        //     }
+        // } catch (error) {
+        //     console.error('Failed to fetch DBML file:', error);
+        // }
     };
 
     useEffect(() => {
         fetDbmlFile();
     }, []);
+
     const initialDBML = content ?? '';
 
     const [dbmlContent, setDBMLContent] = useState<string>(initialDBML);
